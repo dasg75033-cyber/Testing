@@ -59,28 +59,34 @@
       }
     }
 
-    /* Bouquet SVG Glow and Pulse */
+    /* Bouquet Wrapper */
     .bouquet-wrapper {
       filter: drop-shadow(0 15px 25px rgba(234, 179, 8, 0.25));
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.3s ease;
     }
     
     .bouquet-wrapper:hover {
-      transform: scale(1.03) translateY(-4px);
+      transform: scale(1.02);
     }
 
-    /* Blossom Petal Transformations */
-    .flower-petal {
-      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
-      transform-origin: center;
+    /* Animación estricta de Palpitar (sin desplazamientos) */
+    .bloomed #svgBouquet {
+      animation: pulseBouquet 1.8s ease-in-out infinite alternate;
     }
 
-    /* Closed state vs Open state for SVG bouquet */
-    .bloomed .petal-outer-1 { transform: rotate(-18deg) scale(1.12); }
-    .bloomed .petal-outer-2 { transform: rotate(18deg) scale(1.12); }
-    .bloomed .petal-outer-3 { transform: rotate(-28deg) scale(1.18); }
-    .bloomed .petal-outer-4 { transform: rotate(28deg) scale(1.18); }
-    .bloomed .flower-center-glow { filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.9)); }
+    @keyframes pulseBouquet {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.06);
+      }
+    }
+
+    /* Brillo en los centros de las flores */
+    .bloomed .flower-center-glow { 
+      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.9)); 
+    }
 
     /* Glassmorphism Cards */
     .glass-card {
@@ -150,7 +156,7 @@
     <!-- Top Greeting Badge -->
     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-100/80 border border-yellow-300/60 text-yellow-800 text-xs md:text-sm font-semibold tracking-wide uppercase mb-6 shadow-sm animate-fade-in">
       <span class="inline-block w-2 h-2 rounded-full bg-yellow-500 animate-ping"></span>
-      21 de Septiembre • Día de las Flores Amarillas
+      21 de Septiembre • Flores Amarillas a la Distancia
     </div>
 
     <!-- Main Title -->
@@ -159,7 +165,7 @@
     </h1>
     
     <p class="text-center text-amber-800/80 text-base md:text-lg max-w-lg mb-8 font-light">
-      Dicen que regalar flores amarillas el 21 de septiembre significa el deseo de caminar juntos por siempre... Aquí tienes un ramo que nunca se marchitará.
+      Aunque hoy nos separen los kilómetros, no hay distancia que apague lo que siento por ti. Aquí tienes un ramo de flores amarillas que siempre estará encendido para ti.
     </p>
 
     <!-- Interactive Bouquet Section -->
@@ -171,7 +177,7 @@
 
       <!-- Bouquet Interactive SVG -->
       <div class="bouquet-wrapper cursor-pointer inline-block relative py-4" id="bouquetTrigger" onclick="toggleBlossom(event)">
-        <svg id="svgBouquet" class="w-64 h-64 md:w-80 md:h-80 mx-auto transition-transform duration-700" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="svgBouquet" class="w-64 h-64 md:w-80 md:h-80 mx-auto transition-transform duration-500" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Ribbon & Wrap Paper Background -->
           <path d="M110 210 L150 280 L190 210 L175 160 L125 160 Z" fill="#FEF08A" stroke="#EAB308" stroke-width="2" />
           <path d="M100 160 Q150 185 200 160 L185 270 Q150 285 115 270 Z" fill="#FDE047" opacity="0.85" />
@@ -191,8 +197,7 @@
 
           <!-- FLOWER 1 (Left Sunflower) -->
           <g transform="translate(105, 90)">
-            <!-- Outer Petals -->
-            <g class="flower-petal petal-outer-1">
+            <g>
               <ellipse cx="0" cy="-22" rx="7" ry="16" fill="#FACC15"/>
               <ellipse cx="0" cy="22" rx="7" ry="16" fill="#FACC15"/>
               <ellipse cx="-22" cy="0" rx="16" ry="7" fill="#FACC15"/>
@@ -202,14 +207,13 @@
               <ellipse cx="-15" cy="15" rx="7" ry="15" transform="rotate(45 -15 15)" fill="#FDE047"/>
               <ellipse cx="15" cy="15" rx="7" ry="15" transform="rotate(-45 15 15)" fill="#FDE047"/>
             </g>
-            <!-- Center -->
             <circle cx="0" cy="0" r="12" fill="#713F12" class="flower-center-glow"/>
             <circle cx="0" cy="0" r="9" fill="#854D0E"/>
           </g>
 
           <!-- FLOWER 2 (Right Sunflower) -->
           <g transform="translate(195, 90)">
-            <g class="flower-petal petal-outer-2">
+            <g>
               <ellipse cx="0" cy="-22" rx="7" ry="16" fill="#FACC15"/>
               <ellipse cx="0" cy="22" rx="7" ry="16" fill="#FACC15"/>
               <ellipse cx="-22" cy="0" rx="16" ry="7" fill="#FACC15"/>
@@ -225,7 +229,7 @@
 
           <!-- FLOWER 3 (Central Main Flower) -->
           <g transform="translate(150, 65)">
-            <g class="flower-petal petal-outer-3">
+            <g>
               <ellipse cx="0" cy="-28" rx="9" ry="20" fill="#EAB308"/>
               <ellipse cx="0" cy="28" rx="9" ry="20" fill="#EAB308"/>
               <ellipse cx="-28" cy="0" rx="20" ry="9" fill="#EAB308"/>
@@ -237,13 +241,12 @@
             </g>
             <circle cx="0" cy="0" r="16" fill="#713F12" class="flower-center-glow"/>
             <circle cx="0" cy="0" r="12" fill="#854D0E"/>
-            <!-- Sparkle Accent -->
             <circle cx="-4" cy="-4" r="3" fill="#FEF08A" opacity="0.8"/>
           </g>
 
           <!-- FLOWER 4 (Top Center Daisy) -->
           <g transform="translate(150, 125)">
-            <g class="flower-petal petal-outer-4">
+            <g>
               <circle cx="0" cy="-15" r="7" fill="#FEF08A"/>
               <circle cx="0" cy="15" r="7" fill="#FEF08A"/>
               <circle cx="-15" cy="0" r="7" fill="#FEF08A"/>
@@ -263,7 +266,7 @@
         </svg>
 
         <p class="text-xs text-amber-700/70 mt-2 font-medium tracking-wide">
-          ✨ ¡Toca el ramo para hacerlo florecer! ✨
+          ✨ ¡Toca el ramo para animarlo! ✨
         </p>
       </div>
 
@@ -280,29 +283,29 @@
         <div class="bg-amber-50/90 border border-yellow-200/80 rounded-2xl p-6 md:p-8 space-y-4 shadow-inner">
           
           <div class="flex justify-between items-center border-b border-yellow-200/60 pb-3">
-            <span class="font-serif-title text-xl text-amber-900 font-bold">Para ti, con todo mi amor</span>
+            <span class="font-serif-title text-xl text-amber-900 font-bold">Para ti, cruzando cualquier distancia</span>
             <span class="text-xs font-semibold text-yellow-700 bg-yellow-200/50 px-2.5 py-1 rounded-full">21 / 09</span>
           </div>
 
           <p class="text-amber-900/90 leading-relaxed text-sm md:text-base">
-            Hoy es 21 de septiembre, una fecha que se ha llenado de magia para recordar lo hermoso que es regalar luz, alegría y flores a quien más queremos. Pero para mí, hoy no es solo seguir una tradición; es la excusa perfecta para detenerme un momento y decirte todo lo que significas en mi vida.
+            Hoy es 21 de septiembre, un día que se ha vuelto una hermosa excusa para regalar flores amarillas, luz y buena energía a las personas que más amamos. Aunque hoy la distancia nos tenga en lugares diferentes, mi corazón está completamente contigo.
           </p>
 
           <p class="text-amber-900/90 leading-relaxed text-sm md:text-base">
-            Si pudiera regalarte un campo entero de girasoles y flores amarillas, lo haría sin dudarlo. Sin embargo, este pequeño rincón digital fue creado con todo mi cariño para recordarte que, así como el color amarillo simboliza el sol, el calor y la energía, tú eres esa luz radiante que ilumina cada uno de mis días.
+            Quería regalarte algo único, un ramo especial que los kilómetros no pudieran marchitar. Así como el color amarillo simboliza el sol, el calor y la alegría, para mí tú eres esa luz constante que ilumina mis días sin importar qué tan lejos estemos el uno del otro.
           </p>
 
           <p class="text-amber-900/90 leading-relaxed text-sm md:text-base">
-            Gracias por tu paciencia, por tus risas compartidas, por cada abrazo sincero y por la forma tan bonita en la que haces que el mundo parezca un lugar más cálido e ilusionante. No necesito una fecha en el calendario para saber lo afortunado/a que soy de tenerte, pero hoy quiero celebrarte especialmente a ti.
+            Gracias por tu cariño incondicional, por cada llamada, por las sonrisas compartidas y por la forma tan bonita en la que me haces sentir cerca de ti siempre. No necesito tenerte al lado físicamente para saber lo afortunado que soy de tenerte en mi vida.
           </p>
 
           <p class="text-amber-900/90 leading-relaxed text-sm md:text-base font-medium italic text-amber-800">
-            "Que nunca nos falten las razones para sonreír, los sueños por cumplir juntos y las flores en nuestro camino."
+            "Que la distancia solo sea un detalle temporal y que nunca nos falten las flores, las sonrisas y los sueños por cumplir juntos."
           </p>
 
           <div class="pt-4 border-t border-yellow-200/60 flex flex-col md:flex-row justify-between items-center gap-2">
             <p class="text-sm font-serif-title font-bold text-amber-900">
-              Con todo mi amor por siempre, ❤️
+              Con todo mi amor siempre, ❤️
             </p>
             <div class="flex gap-1 text-lg">
               🌻 🌼 💛 🌻
@@ -318,7 +321,7 @@
 
   <!-- Footer -->
   <footer class="py-4 text-center text-xs text-amber-800/60 relative z-20">
-    Hecho con 💛 especialmente para ti • 21 de Septiembre
+    Hecho con 💛 a la distancia especialmente para ti • 21 de Septiembre
   </footer>
 
   <script>
@@ -331,34 +334,31 @@
       petal.classList.add('petal');
       petal.innerText = petalTypes[Math.floor(Math.random() * petalTypes.length)];
       
-      // Random Positioning & Dimensions
       petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.animationDuration = (Math.random() * 4 + 5) + 's'; // 5s to 9s
+      petal.style.animationDuration = (Math.random() * 4 + 5) + 's';
       petal.style.fontSize = (Math.random() * 0.8 + 1) + 'rem';
       
       petalsContainer.appendChild(petal);
 
-      // Cleanup
       setTimeout(() => {
         petal.remove();
       }, 9000);
     }
 
-    // Spawn petals periodically
     setInterval(createPetal, 350);
 
-    /* 2. Interactive Bouquet Blossom Trigger */
+    /* 2. Interactive Bouquet Movement Trigger */
     let isBloomed = false;
     function toggleBlossom(event) {
-      const svg = document.getElementById('svgBouquet');
+      const trigger = document.getElementById('bouquetTrigger');
       isBloomed = !isBloomed;
       
       if (isBloomed) {
-        svg.classList.add('bloomed');
+        trigger.classList.add('bloomed');
         spawnFloatingHeart(event.clientX, event.clientY, '✨');
         triggerConfetti(0.3);
       } else {
-        svg.classList.remove('bloomed');
+        trigger.classList.remove('bloomed');
       }
     }
 
@@ -368,7 +368,7 @@
       const letter = document.getElementById('letterContainer');
       const btnText = document.getElementById('btnText');
       const btnIcon = document.getElementById('btnIcon');
-      const svg = document.getElementById('svgBouquet');
+      const trigger = document.getElementById('bouquetTrigger');
 
       isLetterOpen = !isLetterOpen;
 
@@ -377,16 +377,13 @@
         btnText.innerText = "Cerrar carta";
         btnIcon.innerText = "💛";
         
-        // Auto-bloom bouquet when letter opens
         if (!isBloomed) {
-          svg.classList.add('bloomed');
+          trigger.classList.add('bloomed');
           isBloomed = true;
         }
 
-        // Trigger celebratory confetti burst
         triggerConfetti(0.8);
 
-        // Spawn multiple floating hearts around click position
         for (let i = 0; i < 6; i++) {
           setTimeout(() => {
             const offsetX = (Math.random() - 0.5) * 120;
@@ -421,7 +418,6 @@
       heart.classList.add('floating-heart');
       heart.innerText = symbol || symbols[Math.floor(Math.random() * symbols.length)];
       
-      // Position at mouse/touch placement
       heart.style.left = (x - 12) + 'px';
       heart.style.top = (y - 20) + 'px';
 
@@ -432,9 +428,7 @@
       }, 1500);
     }
 
-    // Global click burst effect for extra interactivity
     document.addEventListener('click', (e) => {
-      // Avoid spawning if clicking standard text or non-interactive areas heavily
       if (Math.random() > 0.4 && !e.target.closest('button')) {
         spawnFloatingHeart(e.clientX, e.clientY);
       }
